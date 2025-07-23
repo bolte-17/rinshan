@@ -17,6 +17,6 @@ defmodule Rinshan.Players.Player do
   def changeset(player, attrs) do
     player
     |> cast(attrs, [:name, :discord_id, :discord_uid, :paid_through])
-    |> validate_required([:name, :discord_id, :discord_uid, :paid_through])
+    |> validate_required([:name])
   end
 end

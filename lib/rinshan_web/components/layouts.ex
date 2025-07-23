@@ -9,6 +9,7 @@ defmodule RinshanWeb.Layouts do
   `use RinshanWeb, :live_view`.
   """
   use RinshanWeb, :html
+  import RinshanWeb.Components.NavbarComponents
 
   embed_templates "layouts/*"
 end

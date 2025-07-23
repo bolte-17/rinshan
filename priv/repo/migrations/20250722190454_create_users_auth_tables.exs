@@ -8,7 +8,7 @@ defmodule Rinshan.Repo.Migrations.CreateUsersAuthTables do
       add :email, :citext, null: false
       add :hashed_password, :string, null: false
       add :confirmed_at, :utc_datetime
-      add :roles,  {:array, :string}
+      add :roles, {:array, :string}
 
       timestamps(type: :utc_datetime)
     end

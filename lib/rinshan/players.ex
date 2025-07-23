@@ -6,6 +6,7 @@ defmodule Rinshan.Players do
   import Ecto.Query, warn: false
   alias Rinshan.Repo
 
+  alias Rinshan.Accounts.User
   alias Rinshan.Players.Player
 
   @doc """
@@ -72,6 +73,14 @@ defmodule Rinshan.Players do
     |> Player.changeset(attrs)
     |> Repo.update()
   end
+
+  def update_user_player(%User{} = user, attrs) do
+    user
+    |> Ecto.Changeset.cast(attrs, [])
+    |> Ecto.Changeset.cast_assoc(:player)
+    |> Repo.update()
+  end
+  
 
   @doc """
   Deletes a player.

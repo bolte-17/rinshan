@@ -8,7 +8,7 @@ defmodule Rinshan.Accounts.User do
     field :hashed_password, :string, redact: true
     field :current_password, :string, virtual: true, redact: true
     field :confirmed_at, :utc_datetime
-    field :roles, {:array, Ecto.Enum}, values: [:admin, :officer, :member]
+    field :roles, {:array, Ecto.Enum}, values: [:admin, :officer, :member], default: []
     belongs_to :player, Rinshan.Players.Player
 
     timestamps(type: :utc_datetime)
