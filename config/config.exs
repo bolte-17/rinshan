@@ -60,6 +60,14 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :elixir_google_spreadsheets, :client,
+  request_workers: 50,
+  max_demand: 100,
+  max_interval: :timer.minutes(1),
+  interval: 100,
+  result_timeout: :timer.minutes(10),
+  request_opts: [] # See Finch request options
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

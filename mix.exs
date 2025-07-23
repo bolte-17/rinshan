@@ -19,7 +19,7 @@ defmodule Rinshan.MixProject do
   def application do
     [
       mod: {Rinshan.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :elixir_google_spreadsheets]
     ]
   end
 
@@ -59,7 +59,8 @@ defmodule Rinshan.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:petal_components, "~> 3.0"}
+      {:petal_components, "~> 3.0"},
+      {:elixir_google_spreadsheets, "~> 0.4"}
     ]
   end
 
