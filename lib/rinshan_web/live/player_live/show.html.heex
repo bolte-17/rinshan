@@ -17,7 +17,7 @@
 
 <.back navigate={~p"/players"}>Back to players</.back>
 
-<.modal
+<.core_modal
   :if={@live_action == :edit}
   id="player-modal"
   show
@@ -31,4 +31,4 @@
     player={@player}
     patch={~p"/players/#{@player}"}
   />
-</.modal>
+</.core_modal>

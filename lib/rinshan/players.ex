@@ -76,11 +76,10 @@ defmodule Rinshan.Players do
 
   def update_user_player(%User{} = user, attrs) do
     user
-    |> Ecto.Changeset.cast(attrs, [])
+    |> Ecto.Changeset.cast(attrs |> IO.inspect(), [])
     |> Ecto.Changeset.cast_assoc(:player)
     |> Repo.update()
   end
-  
 
   @doc """
   Deletes a player.

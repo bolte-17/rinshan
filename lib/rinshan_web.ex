@@ -85,6 +85,9 @@ defmodule RinshanWeb do
       # Translation
       use Gettext, backend: RinshanWeb.Gettext
 
+      # Components Library
+      use PetalComponents
+
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components

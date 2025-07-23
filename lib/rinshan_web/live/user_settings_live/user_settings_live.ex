@@ -1,9 +1,7 @@
 defmodule RinshanWeb.UserSettingsLive do
   use RinshanWeb, :live_view
-  import SaladUI.Tabs
 
   alias Rinshan.Accounts
-  alias Rinshan.Players
 
   def mount(%{"token" => token}, _session, socket) do
     socket =
@@ -19,7 +17,7 @@ defmodule RinshanWeb.UserSettingsLive do
   end
 
   def mount(_params, _session, socket) do
-    user = socket.assigns.current_user |> Rinshan.Repo.preload(:player)
+    user = socket.assigns.current_user
     email_changeset = Accounts.change_user_email(user)
     password_changeset = Accounts.change_user_password(user)
 
@@ -32,111 +30,77 @@ defmodule RinshanWeb.UserSettingsLive do
       |> assign(:password_form, to_form(password_changeset))
       |> assign(:trigger_submit, false)
 
-    player_form = (user.player || Ecto.build_assoc(user, :player)) |> Players.change_player() |> to_form()
-    
-    socket = socket |> assign(:player_form, player_form)
-
     {:ok, socket}
   end
 
   def render(assigns) do
     ~H"""
-    <.tabs default="user" id="user-settings-tabs">
-      <.tabs_list class="grid w-full grid-cols-2">
-        <.tabs_trigger value="user">User Settings</.tabs_trigger>
-        <.tabs_trigger value="player">Player Profile</.tabs_trigger>
-      </.tabs_list>
-      <.tabs_content value="user">
-        <.header class="text-center">
-          Account Settings
-          <:subtitle>Manage your account email address and password settings</:subtitle>
-        </.header>
-        <div class="space-y-12 divide-y">
-          <div>
-            <.simple_form
-              for={@email_form}
-              id="email_form"
-              phx-submit="update_email"
-              phx-change="validate_email"
-            >
-              <.input field={@email_form[:email]} type="email" label="Email" required />
-              <.input
-                field={@email_form[:current_password]}
-                name="current_password"
-                id="current_password_for_email"
-                type="password"
-                label="Current password"
-                value={@email_form_current_password}
-                required
-              />
-              <:actions>
-                <.button phx-disable-with="Changing...">Change Email</.button>
-              </:actions>
-            </.simple_form>
-          </div>
-          <div>
-            <.simple_form
-              for={@password_form}
-              id="password_form"
-              action={~p"/users/log_in?_action=password_updated"}
-              method="post"
-              phx-change="validate_password"
-              phx-submit="update_password"
-              phx-trigger-action={@trigger_submit}
-            >
-              <input
-                name={@password_form[:email].name}
-                type="hidden"
-                id="hidden_user_email"
-                value={@current_email}
-              />
-              <.input field={@password_form[:password]} type="password" label="New password" required />
-              <.input
-                field={@password_form[:password_confirmation]}
-                type="password"
-                label="Confirm new password"
-              />
-              <.input
-                field={@password_form[:current_password]}
-                name="current_password"
-                type="password"
-                label="Current password"
-                id="current_password_for_password"
-                value={@current_password}
-                required
-              />
-              <:actions>
-                <.button phx-disable-with="Changing...">Change Password</.button>
-              </:actions>
-            </.simple_form>
-          </div>
+    <div>
+      <.header class="text-center">
+        Account Settings
+        <:subtitle>Manage your account email address and password settings</:subtitle>
+      </.header>
+      <div class="space-y-12 divide-y">
+        <div>
+          <.simple_form
+            for={@email_form}
+            id="email_form"
+            phx-submit="update_email"
+            phx-change="validate_email"
+          >
+            <.input field={@email_form[:email]} type="email" label="Email" required />
+            <.input
+              field={@email_form[:current_password]}
+              name="current_password"
+              id="current_password_for_email"
+              type="password"
+              label="Current password"
+              value={@email_form_current_password}
+              required
+            />
+            <:actions>
+              <.button phx-disable-with="Changing...">Change Email</.button>
+            </:actions>
+          </.simple_form>
         </div>
-      </.tabs_content>
-      <.tabs_content value="player">
-        <.header class="text-center">
-          Player Profile
-          <:subtitle>Manage how you appear on the leaderboard</:subtitle>
-        </.header>
-        <div class="space-y-12 divide-y">
-          <div>
-            <.simple_form
-              for={@player_form}
-              id="player_form"
-              phx-submit="upsert_player"
-            >
-              <.input field={@player_form[:name]} label="Display Name" required />
-              <.input
-                field={@player_form[:discord_id]}
-                label="Discord ID"
-              />
-              <:actions>
-                <.button phx-disable-with="Changing...">Update Profile</.button>
-              </:actions>
-            </.simple_form>
-          </div>
+        <div>
+          <.simple_form
+            for={@password_form}
+            id="password_form"
+            action={~p"/users/log_in?_action=password_updated"}
+            method="post"
+            phx-change="validate_password"
+            phx-submit="update_password"
+            phx-trigger-action={@trigger_submit}
+          >
+            <input
+              name={@password_form[:email].name}
+              type="hidden"
+              id="hidden_user_email"
+              value={@current_email}
+            />
+            <.input field={@password_form[:password]} type="password" label="New password" required />
+            <.input
+              field={@password_form[:password_confirmation]}
+              type="password"
+              label="Confirm new password"
+            />
+            <.input
+              field={@password_form[:current_password]}
+              name="current_password"
+              type="password"
+              label="Current password"
+              id="current_password_for_password"
+              value={@current_password}
+              required
+            />
+            <:actions>
+              <.button phx-disable-with="Changing...">Change Password</.button>
+            </:actions>
+          </.simple_form>
         </div>
-      </.tabs_content>
-    </.tabs>
+      </div>
+    </div>
     """
   end
 
@@ -199,23 +163,6 @@ defmodule RinshanWeb.UserSettingsLive do
 
       {:error, changeset} ->
         {:noreply, assign(socket, password_form: to_form(changeset))}
-    end
-  end
-
-  def handle_event("upsert_player", params, socket) do
-    user = socket.assigns.current_user
-    
-    case Players.update_user_player(user, params) do
-      {:ok, %{player: player}} ->
-        player_form =
-          player
-          |> Players.change_player()
-          |> to_form()
-
-        {:noreply, socket |> put_flash(:info, "Successfully updated player profile") |> assign(player_form: player_form)}
-
-      {:error, changeset} ->
-        {:noreply, assign(socket, player_form: to_form(changeset))}
     end
   end
 end

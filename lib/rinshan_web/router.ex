@@ -73,6 +73,8 @@ defmodule RinshanWeb.Router do
       live "/players/:id", PlayerLive.Show, :show
       live "/players/:id/show/edit", PlayerLive.Show, :edit
 
+      live "/profile", PlayerLive.Profile, :show
+
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
