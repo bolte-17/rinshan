@@ -11,6 +11,9 @@ defmodule RinshanWeb.Components.NavbarComponents do
         <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
           Queen City Riichi
         </p>
+        <.link href={~p"/leaderboard"}>
+          Leaderboard
+        </.link>
         <.link href={~p"/players"}>
           Players
         </.link>

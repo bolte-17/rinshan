@@ -74,6 +74,10 @@ defmodule RinshanWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{RinshanWeb.UserAuth, :ensure_authenticated}] do
+      live "/leaderboard", LeaderboardLive, :yonma
+      live "/leaderboard/yonma", LeaderboardLive, :yonma
+      live "/leaderboard/sanma", LeaderboardLive, :sanma
+
       live "/players", PlayerLive.Index, :index
       live "/players/new", PlayerLive.Index, :new
       live "/players/:id/edit", PlayerLive.Index, :edit

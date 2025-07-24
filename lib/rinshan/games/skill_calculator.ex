@@ -29,11 +29,12 @@ defmodule Rinshan.Games.SkillCalculator do
 
       for score <- game.scores do
         {mu, sigma} = Map.get(new_ratings, score.player_id)
+
         score
         |> Ecto.Changeset.change(skill_mu: mu, skill_sigma: sigma)
         |> Repo.update!()
       end
-      
+
       Map.merge(player_skills, new_ratings)
     end)
 

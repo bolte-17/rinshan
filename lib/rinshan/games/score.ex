@@ -35,8 +35,16 @@ defmodule Rinshan.Games.Score do
     3 => 35000
   }
   @chombo_penalty -10
-  def score_with_uma(%__MODULE__{points: points, rank: rank, chombo: chombo, game: %{player_count: player_count}}) do
-    Float.round((points - @paybacks[player_count]) / 1000 + chombo * @chombo_penalty + Enum.at(@umas[player_count], rank - 1), 1)
+  def score_with_uma(%__MODULE__{
+        points: points,
+        rank: rank,
+        chombo: chombo,
+        game: %{player_count: player_count, rounds: rounds}
+      }) do
+    Float.round(
+      (points - @paybacks[player_count]) / 1000 + chombo * @chombo_penalty +
+        Enum.at(@umas[player_count], rank - 1) * rounds,
+      1
+    )
   end
-  
 end

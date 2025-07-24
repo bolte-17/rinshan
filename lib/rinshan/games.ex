@@ -17,11 +17,41 @@ defmodule Rinshan.Games do
       [%Game{}, ...]
 
   """
-  def list_games do
-    Game
-    |> order_by(desc: :played_at)
-    |> preload(scores: ^{Score.with_rank(), [:player]})
-    |> Repo.all()
+  def list_games(opts \\ []) do
+    query =
+      Game
+      |> order_by(desc: :played_at)
+      |> preload(scores: ^{Score.with_rank(), [:player]})
+
+    query =
+      if player_count = Keyword.get(opts, :player_count) do
+        query |> where(player_count: ^player_count)
+      else
+        query
+      end
+
+    query =
+      if since = Keyword.get(opts, :since) do
+        query |> where([g], g.played_at > ^since)
+      else
+        query
+      end
+
+    Repo.all(query)
+  end
+
+  def leaderboard(opts \\ []) do
+    Rinshan.Games.list_games(opts)
+    |> Enum.flat_map(&(&1.scores |> Enum.map(fn score -> %{score | game: &1} end)))
+    |> Enum.group_by(&{&1.player.id, &1.player.name}, &{Score.score_with_uma(&1), &1.game.rounds})
+    |> Enum.map(fn {{_, name}, scores} ->
+      {
+        name,
+        scores |> Enum.sum_by(&elem(&1, 0)) |> Float.round(1),
+        (scores |> Enum.sum_by(&elem(&1, 1))) / 2
+      }
+    end)
+    |> Enum.sort_by(&elem(&1, 1), :desc)
   end
 
   @doc """
