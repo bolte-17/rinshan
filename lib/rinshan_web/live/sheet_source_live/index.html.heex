@@ -1,0 +1,54 @@
+<.header>
+  Listing Sources
+  <:actions>
+    <.link patch={~p"/sources/new"}>
+      <.button>New Sheet source</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.core_table
+  id="sources"
+  rows={@streams.sources}
+  row_click={fn {_id, sheet_source} -> JS.navigate(~p"/sources/#{sheet_source}") end}
+>
+  <:col :let={{_id, sheet_source}} label="Sheet">
+    <.google_sheets_link source={sheet_source} />
+  </:col>
+  <:col :let={{_id, sheet_source}} label="Year">{sheet_source.year}</:col>
+  <:col :let={{_id, sheet_source}} label="Tags">
+    {sheet_source.tags |> Enum.map(&Atom.to_string/1)}
+  </:col>
+  <:col :let={{_id, sheet_source}} label="Registry range">{sheet_source.registry_range}</:col>
+  <:col :let={{_id, sheet_source}} label="Games range">{sheet_source.games_range}</:col>
+  <:action :let={{_id, sheet_source}}>
+    <div class="sr-only">
+      <.link navigate={~p"/sources/#{sheet_source}"}>Show</.link>
+    </div>
+    <.link patch={~p"/sources/#{sheet_source}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, sheet_source}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: sheet_source.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.core_table>
+
+<.core_modal
+  :if={@live_action in [:new, :edit]}
+  id="sheet_source-modal"
+  show
+  on_cancel={JS.patch(~p"/sources")}
+>
+  <.live_component
+    module={RinshanWeb.SheetSourceLive.FormComponent}
+    id={@sheet_source.id || :new}
+    title={@page_title}
+    action={@live_action}
+    sheet_source={@sheet_source}
+    patch={~p"/sources"}
+  />
+</.core_modal>

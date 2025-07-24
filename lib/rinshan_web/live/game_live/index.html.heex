@@ -1,0 +1,26 @@
+<.header>
+  Games
+  <:actions>
+    <.button
+      phx-click="refresh_games"
+      link_type="button"
+      color="white"
+      label="Refresh"
+      icon="hero-arrow-path"
+    />
+  </:actions>
+</.header>
+
+<div class="flex flex-col gap-2 mt-2">
+  <.card :for={{_, game} <- @streams.games}>
+    <.card_content category={"#{display_game_mode(game)} - #{DateTime.to_string(game.played_at)}"}>
+      <div class="grid grid-cols-2 gap-2 max-w-110">
+        <div :for={{score, idx} <- game.scores |> Enum.sort_by(& &1.points, :desc) |> Enum.with_index(1)} class="flex px-2 gap-2 rounded-lg bg-gray-200/50">
+          <span class="w-6">{ordinal(idx)}</span>
+          <.a to={~p"/players/#{score.player.id}"} :if={score.player}>{score.player.name}</.a>
+          <span class="flex-grow text-right">{score.points}</span>
+        </div>
+      </div>
+    </.card_content>
+  </.card>
+</div>

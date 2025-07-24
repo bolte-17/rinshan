@@ -60,7 +60,10 @@ defmodule Rinshan.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:petal_components, "~> 3.0"},
-      {:elixir_google_spreadsheets, "~> 0.4"}
+      {:elixir_google_spreadsheets, "~> 0.4"},
+      {:oban, "~> 2.19"},
+      {:igniter, "~> 0.5", only: [:dev]},
+      {:obanalyze, "~> 1.4"}
     ]
   end
 

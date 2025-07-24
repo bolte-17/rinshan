@@ -14,16 +14,27 @@ defmodule RinshanWeb.Components.NavbarComponents do
         <.link href={~p"/players"}>
           Players
         </.link>
+        <.link href={~p"/games"}>
+          Games
+        </.link>
       </div>
       <div class="flex flex-initial gap-4">
         <%= if @current_user do %>
-          <.dropdown js_lib="live_view_js" trigger_class="inline-flex gap-1" menu_items_wrapper_class="w-auto text-nowrap">
+          <.dropdown
+            js_lib="live_view_js"
+            trigger_class="inline-flex gap-1"
+            menu_items_wrapper_class="w-auto text-nowrap"
+          >
             <:trigger_element>
-                <HeroiconsV1.Solid.user class="flex-none w-4"/>
-                <span class="flex-none">{user_display_name(@current_user)}</span>
-                <HeroiconsV1.Solid.chevron_down class="flex-none w-4"/>
+              <HeroiconsV1.Solid.user class="flex-none w-4" />
+              <span class="flex-none">{user_display_name(@current_user)}</span>
+              <HeroiconsV1.Solid.chevron_down class="flex-none w-4" />
             </:trigger_element>
-            <.dropdown_menu_item link_type="live_redirect" to={~p"/users/settings"} label="Account Settings" />
+            <.dropdown_menu_item
+              link_type="live_redirect"
+              to={~p"/users/settings"}
+              label="Account Settings"
+            />
             <.dropdown_menu_item link_type="live_redirect" to={~p"/profile"} label="Player Profile" />
             <.dropdown_menu_item>
               <.logout_link />
@@ -38,16 +49,13 @@ defmodule RinshanWeb.Components.NavbarComponents do
     """
   end
 
-  def user_display_name(%{player: %{name: name }}), do: name
+  def user_display_name(%{player: %{name: name}}), do: name
   def user_display_name(%{name: name}), do: name
   def user_display_name(%{email: email}), do: email
 
   def logout_link(assigns) do
     ~H"""
-    <.link
-      href={~p"/users/log_out"}
-      method="delete"
-    >
+    <.link href={~p"/users/log_out"} method="delete">
       Log out
     </.link>
     """

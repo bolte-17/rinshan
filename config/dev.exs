@@ -84,4 +84,5 @@ config :phoenix_live_view,
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
 
-config :elixir_google_spreadsheets, json: "./config/google_api_keys/service_account.json" |> File.read!
+config :elixir_google_spreadsheets,
+  json: "./config/google_api_keys/service_account.json" |> File.read!()

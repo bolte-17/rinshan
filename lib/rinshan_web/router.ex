@@ -40,7 +40,15 @@ defmodule RinshanWeb.Router do
     scope "/dev" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: RinshanWeb.Telemetry
+      live_dashboard "/dashboard",
+        metrics: RinshanWeb.Telemetry,
+        additional_pages: [
+          obanalyze: Obanalyze.dashboard()
+        ],
+        on_mount: [
+          Obanalyze.hooks()
+        ]
+
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
@@ -73,10 +81,24 @@ defmodule RinshanWeb.Router do
       live "/players/:id", PlayerLive.Show, :show
       live "/players/:id/show/edit", PlayerLive.Show, :edit
 
+      live "/games", GameLive.Index, :index
+      live "/games/new", GameLive.Index, :new
+      live "/games/:id/edit", GameLive.Index, :edit
+
+      live "/games/:id", GameLive.Show, :show
+      live "/games/:id/show/edit", GameLive.Show, :edit
+
       live "/profile", PlayerLive.Profile, :show
 
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/sources", SheetSourceLive.Index, :index
+      live "/sources/new", SheetSourceLive.Index, :new
+      live "/sources/:id/edit", SheetSourceLive.Index, :edit
+
+      live "/sources/:id", SheetSourceLive.Show, :show
+      live "/sources/:id/show/edit", SheetSourceLive.Show, :edit
     end
   end
 

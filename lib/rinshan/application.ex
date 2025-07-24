@@ -11,6 +11,7 @@ defmodule Rinshan.Application do
       RinshanWeb.Telemetry,
       Rinshan.Repo,
       {DNSCluster, query: Application.get_env(:rinshan, :dns_cluster_query) || :ignore},
+      {Oban, Application.fetch_env!(:rinshan, Oban)},
       {Phoenix.PubSub, name: Rinshan.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: Rinshan.Finch},

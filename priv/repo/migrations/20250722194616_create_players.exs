@@ -10,5 +10,7 @@ defmodule Rinshan.Repo.Migrations.CreatePlayers do
 
       timestamps(type: :utc_datetime)
     end
+
+    create unique_index(:players, [:discord_id])
   end
 end

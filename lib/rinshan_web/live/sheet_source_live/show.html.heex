@@ -1,0 +1,35 @@
+<.header>
+  <.google_sheets_link source={@sheet_source} />
+  <:subtitle>This is a sheet_source record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/sources/#{@sheet_source}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit sheet_source</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Sheet ID">{@sheet_source.sheet_id}</:item>
+  <:item title="Year">{@sheet_source.year}</:item>
+  <:item title="Tags">{@sheet_source.tags |> Enum.map(&Atom.to_string/1)}</:item>
+  <:item title="Registry range">{@sheet_source.registry_range}</:item>
+  <:item title="Games range">{@sheet_source.games_range}</:item>
+</.list>
+
+<.back navigate={~p"/sources"}>Back to sources</.back>
+
+<.core_modal
+  :if={@live_action == :edit}
+  id="sheet_source-modal"
+  show
+  on_cancel={JS.patch(~p"/sources/#{@sheet_source}")}
+>
+  <.live_component
+    module={RinshanWeb.SheetSourceLive.FormComponent}
+    id={@sheet_source.id}
+    title={@page_title}
+    action={@live_action}
+    sheet_source={@sheet_source}
+    patch={~p"/sources/#{@sheet_source}"}
+  />
+</.core_modal>

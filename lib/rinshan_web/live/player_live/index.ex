@@ -44,4 +44,11 @@ defmodule RinshanWeb.PlayerLive.Index do
 
     {:noreply, stream_delete(socket, :players, player)}
   end
+
+  @impl true
+  def handle_event("refresh_players", _, socket) do
+    Rinshan.Imports.fetch_all_players()
+
+    {:noreply, socket |> put_flash(:info, "Refreshing players...")}
+  end
 end

@@ -7,6 +7,12 @@
 # General application configuration
 import Config
 
+config :rinshan, Oban,
+  engine: Oban.Engines.Basic,
+  notifier: Oban.Notifiers.Postgres,
+  queues: [imports: 20],
+  repo: Rinshan.Repo
+
 config :rinshan,
   ecto_repos: [Rinshan.Repo],
   generators: [timestamp_type: :utc_datetime]
@@ -66,7 +72,8 @@ config :elixir_google_spreadsheets, :client,
   max_interval: :timer.minutes(1),
   interval: 100,
   result_timeout: :timer.minutes(10),
-  request_opts: [] # See Finch request options
+  # See Finch request options
+  request_opts: []
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
