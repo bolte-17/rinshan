@@ -1,5 +1,9 @@
 defmodule Rinshan.Imports.PlayerImporter do
-  use Oban.Worker, queue: :imports, unique: true
+  use Oban.Worker, 
+    queue: :imports,
+    unique: [
+      states: Oban.Job.states() -- [:cancelled, :discarded, :completed]
+    ]
   alias Rinshan.Repo
   alias Rinshan.Players
   alias Rinshan.Players.Player
