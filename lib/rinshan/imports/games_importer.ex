@@ -1,9 +1,10 @@
 defmodule Rinshan.Imports.GamesImporter do
-  use Oban.Worker, 
-    queue: :imports, 
+  use Oban.Worker,
+    queue: :imports,
     unique: [
       states: Oban.Job.states() -- [:cancelled, :discarded, :completed]
     ]
+
   alias Rinshan.Repo
   alias Rinshan.Games.Game
 
@@ -12,7 +13,7 @@ defmodule Rinshan.Imports.GamesImporter do
     with {:ok, pid} <- GSS.Spreadsheet.Supervisor.spreadsheet(sheet_id),
          {:ok, games_import_rows} <- GSS.Spreadsheet.read_rows(pid, [range]) do
       Repo.transact(fn ->
-        games = 
+        games =
           for row <- games_import_rows do
             game_attrs = parse_game_attrs(row)
 
@@ -31,6 +32,7 @@ defmodule Rinshan.Imports.GamesImporter do
 
   defp parse_game_attrs(row) do
     row = if length(row) == 15, do: List.insert_at(row, -4, ""), else: row
+
     [
       timestamp,
       game_mode,
@@ -69,28 +71,30 @@ defmodule Rinshan.Imports.GamesImporter do
       "rounds" => rounds,
       "played_at" => timestamp,
       "leftover_points" => leftover_points,
-      "scores" => [
-        %{
-          "player_discord_id" => player_1,
-          "points" => score_1,
-          "chombo" => chombo_1
-        },
-        %{
-          "player_discord_id" => player_2,
-          "points" => score_2,
-          "chombo" => chombo_2
-        },
-        %{
-          "player_discord_id" => player_3,
-          "points" => score_3,
-          "chombo" => chombo_3
-        },
-        %{
-          "player_discord_id" => player_4,
-          "points" => score_4,
-          "chombo" => chombo_4
-        }
-      ] |> Enum.take(player_count)
+      "scores" =>
+        [
+          %{
+            "player_discord_id" => player_1,
+            "points" => score_1,
+            "chombo" => chombo_1
+          },
+          %{
+            "player_discord_id" => player_2,
+            "points" => score_2,
+            "chombo" => chombo_2
+          },
+          %{
+            "player_discord_id" => player_3,
+            "points" => score_3,
+            "chombo" => chombo_3
+          },
+          %{
+            "player_discord_id" => player_4,
+            "points" => score_4,
+            "chombo" => chombo_4
+          }
+        ]
+        |> Enum.take(player_count)
     }
   end
 end

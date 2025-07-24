@@ -10,7 +10,7 @@ import Config
 config :rinshan, Oban,
   engine: Oban.Engines.Basic,
   notifier: Oban.Notifiers.Postgres,
-  queues: [imports: 20],
+  queues: [imports: 5, skill: 1],
   repo: Rinshan.Repo
 
 config :rinshan,

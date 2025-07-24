@@ -14,11 +14,18 @@
 <div class="flex flex-col gap-2 mt-2">
   <.card :for={{_, game} <- @streams.games}>
     <.card_content category={"#{display_game_mode(game)} - #{DateTime.to_string(game.played_at)}"}>
-      <div class="grid grid-cols-2 gap-2 max-w-110">
-        <div :for={{score, idx} <- game.scores |> Enum.sort_by(& &1.points, :desc) |> Enum.with_index(1)} class="flex px-2 gap-2 rounded-lg bg-gray-200/50">
+      <div class="grid grid-cols-2 grid-rows-2 grid-flow-col gap-2 max-w-s">
+        <div
+          :for={
+            {score, idx} <- game.scores |> Enum.sort_by(& &1.points, :desc) |> Enum.with_index(1)
+          }
+          class="flex px-2 gap-2 rounded-lg bg-gray-200/50"
+        >
           <span class="w-6">{ordinal(idx)}</span>
-          <.a to={~p"/players/#{score.player.id}"} :if={score.player}>{score.player.name}</.a>
+          <.a :if={score.player} to={~p"/players/#{score.player.id}"}>{score.player.name}</.a>
+          <span>({round(Openskill.ordinal({score.skill_mu, score.skill_sigma}) * 100)})</span>
           <span class="flex-grow text-right">{score.points}</span>
+          <span class="w-8 text-right">{Score.score_with_uma(%{score | game: game})}</span>
         </div>
       </div>
     </.card_content>

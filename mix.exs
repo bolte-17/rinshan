@@ -63,7 +63,8 @@ defmodule Rinshan.MixProject do
       {:elixir_google_spreadsheets, "~> 0.4"},
       {:oban, "~> 2.19"},
       {:igniter, "~> 0.5", only: [:dev]},
-      {:obanalyze, "~> 1.4"}
+      {:obanalyze, "~> 1.4"},
+      {:openskill, "~> 1.0"}
     ]
   end
 

@@ -6,7 +6,7 @@ defmodule Rinshan.Games do
   import Ecto.Query, warn: false
   alias Rinshan.Repo
 
-  alias Rinshan.Games.Game
+  alias Rinshan.Games.{Game, Score}
 
   @doc """
   Returns the list of games.
@@ -19,8 +19,8 @@ defmodule Rinshan.Games do
   """
   def list_games do
     Game
-    |> order_by([desc: :played_at])
-    |> preload([scores: [:player]])
+    |> order_by(desc: :played_at)
+    |> preload(scores: ^{Score.with_rank(), [:player]})
     |> Repo.all()
   end
 
@@ -103,5 +103,11 @@ defmodule Rinshan.Games do
   """
   def change_game(%Game{} = game, attrs \\ %{}) do
     Game.changeset(game, attrs)
+  end
+
+  def recalculate_skill_ratings(player_count) do
+    %{player_count: player_count}
+    |> Rinshan.Games.SkillCalculator.new()
+    |> Oban.insert!()
   end
 end

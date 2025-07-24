@@ -30,7 +30,7 @@ defmodule Rinshan.Games.Game do
         changeset = Rinshan.Games.Score.changeset(data, attrs)
 
         with discord_id when not is_nil(discord_id) <- Map.get(attrs, "player_discord_id") do
-          player = 
+          player =
             case Repo.get_by(Player, discord_id: discord_id) do
               nil -> %Player{name: discord_id, discord_id: discord_id}
               player -> player
@@ -39,7 +39,7 @@ defmodule Rinshan.Games.Game do
           changeset
           |> put_assoc(:player, player)
         else
-          x -> 
+          x ->
             IO.inspect(x)
             changeset |> add_error(:player_id, "required")
         end

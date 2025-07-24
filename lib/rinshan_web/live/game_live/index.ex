@@ -2,7 +2,7 @@ defmodule RinshanWeb.GameLive.Index do
   use RinshanWeb, :live_view
 
   alias Rinshan.Games
-  alias Rinshan.Games.Game
+  alias Rinshan.Games.{Game, Score}
 
   @impl true
   def mount(_params, _session, socket) do
@@ -53,11 +53,12 @@ defmodule RinshanWeb.GameLive.Index do
   end
 
   defp display_game_mode(%{player_count: player_count, rounds: rounds}) do
-    round_term = case rounds do
-      1 -> "East-Only"
-      2 -> "East-South"
-    end
-    
+    round_term =
+      case rounds do
+        1 -> "East-Only"
+        2 -> "East-South"
+      end
+
     "#{player_count}-Player #{round_term}"
   end
 
