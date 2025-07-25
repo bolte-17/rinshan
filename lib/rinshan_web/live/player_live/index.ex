@@ -1,12 +1,22 @@
 defmodule RinshanWeb.PlayerLive.Index do
   use RinshanWeb, :live_view
 
+  import RinshanWeb.DisplayHelpers
+
   alias Rinshan.Players
   alias Rinshan.Players.Player
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :players, Players.list_players())}
+    players_list =
+      Players.list_players()
+      |> Enum.sort_by(&max(&1.sanma_rating_mu || 0, &1.yonma_rating_mu || 0), :desc)
+
+    socket =
+      socket
+      |> stream(:players, players_list)
+
+    {:ok, socket}
   end
 
   @impl true

@@ -1,6 +1,8 @@
 defmodule RinshanWeb.GameLive.Index do
   use RinshanWeb, :live_view
 
+  import RinshanWeb.DisplayHelpers
+
   alias Rinshan.Games
   alias Rinshan.Games.{Game, Score}
 
@@ -55,11 +57,18 @@ defmodule RinshanWeb.GameLive.Index do
   defp display_game_mode(%{player_count: player_count, rounds: rounds}) do
     round_term =
       case rounds do
-        1 -> "East-Only"
-        2 -> "East-South"
+        1 -> "東 East-Only"
+        2 -> "南 East-South"
       end
 
-    "#{player_count}-Player #{round_term}"
+    player_count_str =
+      case player_count do
+        3 -> "三 3-Player"
+        4 -> "四 4-Player"
+      end
+      
+
+    "#{player_count_str} #{round_term}"
   end
 
   defp ordinal(i) do

@@ -19,7 +19,7 @@ defmodule Rinshan.Players do
 
   """
   def list_players do
-    Repo.all(Player)
+    Player.ratings() |> Repo.all()
   end
 
   @doc """

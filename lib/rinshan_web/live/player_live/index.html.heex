@@ -23,8 +23,7 @@
   <:col :let={{_id, player}} label="Discord">
     {if(not is_nil(player.discord_id), do: "@#{player.discord_id}", else: nil)}
   </:col>
-  <:col :let={{_id, player}} label="Discord uid">{player.discord_uid}</:col>
-  <:col :let={{_id, player}} label="Paid through">{player.paid_through}</:col>
+  <:col :let={{_id, player}} label="Rating">四{display_skill(player, 4) || " ? "}・三{display_skill(player, 3) || " ? "}</:col>
   <:action :let={{_id, player}}>
     <div class="sr-only">
       <.link navigate={~p"/players/#{player}"}>Show</.link>

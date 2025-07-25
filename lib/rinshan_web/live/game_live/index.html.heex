@@ -23,7 +23,7 @@
         >
           <span class="w-6">{ordinal(idx)}</span>
           <.a :if={score.player} to={~p"/players/#{score.player.id}"}>{score.player.name}</.a>
-          <span>({round(Openskill.ordinal({score.skill_mu, score.skill_sigma}) * 100)})</span>
+          <span>({display_skill({score.skill_mu, score.skill_sigma})})</span>
           <span class="flex-grow text-right">{score.points}</span>
           <span class="w-8 text-right">{Score.score_with_uma(%{score | game: game})}</span>
         </div>
