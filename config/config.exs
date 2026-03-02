@@ -9,7 +9,25 @@ import Config
 
 config :rinshan,
   ecto_repos: [Rinshan.Repo],
-  generators: [timestamp_type: :utc_datetime]
+  generators: [timestamp_type: :utc_datetime],
+  socials: [
+    discord: %{
+      url: "https://discord.gg/R9dr6T2",
+      icon: "fa-brands fa-discord"
+    },
+    instagram: %{
+      url: "https://www.instagram.com/QueenCityRiichi/",
+      icon: "fa-brands fa-instagram"
+    },
+    github: %{
+      url: "https://github.com/Queen-City-Riichi",
+      icon: "fa-brands fa-github"
+    },
+    email: %{
+      url: "mailto:queencityriichi@gmail.com",
+      icon: "fa-solid fa-envelope"
+    }
+  ]
 
 # Configure the endpoint
 config :rinshan, RinshanWeb.Endpoint,
