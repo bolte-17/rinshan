@@ -15,12 +15,11 @@ defmodule RinshanWeb.Navs do
       </div>
       <div class="flex-none">
         <ul class="flex flex-column px-1 space-x-5 items-center">
-          <li><.link to="/" class="link link-hover">Home</.link></li>
-          <li><.link to="/events" class="link link-hover">Events</.link></li>
-          <li><.link to="/tournaments" class="link link-hover">Tournaments</.link></li>
-          <li><.link to="/ruleset" class="link link-hover">Ruleset</.link></li>
-          <li><.link to="/leaderboard" class="link link-hover">Leaderboard</.link></li>
-          <li><.link to="/membership" class="link link-hover">Membership</.link></li>
+          <li><.link navigate="/" class="link link-hover">Home</.link></li>
+          <%!-- <li><.link to="/leaderboard" class="link link-hover">Leaderboard</.link></li> --%>
+          <li :for={page <- RinshanWeb.StaticPages.all_pages()} :if={page.navlink > 0}>
+            <.link navigate={"/#{page.route}"} class="link link-hover capitalize">{page.title}</.link>
+          </li>
           <li>
             <.link
               href={Application.get_env(:rinshan, :socials) |> Kernel.get_in([:discord, :url])}
@@ -45,9 +44,9 @@ defmodule RinshanWeb.Navs do
     ~H"""
     <footer class="footer footer-horizontal footer-center bg-primary text-primary-content rounded p-4 gap-y-2">
       <nav class="grid grid-flow-col gap-4 text-base">
-        <.link to={~p"/events"} class="link link-hover">{gettext("Events")}</.link>
-        <.link to={~p"/membership"} class="link link-hover">{gettext("Membership")}</.link>
-        <.link to={~p"/events"} class="link link-hover">{gettext("Join Us")}</.link>
+        <.link navigate={~p"/events"} class="link link-hover">{gettext("Events")}</.link>
+        <.link navigate={~p"/membership"} class="link link-hover">{gettext("Membership")}</.link>
+        <.link navigate={~p"/events"} class="link link-hover">{gettext("Join Us")}</.link>
       </nav>
       <nav class="grid grid-flow-col gap-4 text-2xl">
         <.link

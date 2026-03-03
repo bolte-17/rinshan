@@ -18,6 +18,12 @@ defmodule RinshanWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    for route <- RinshanWeb.StaticPages.routes() do
+      get "/#{route}", PageController, :static_page,
+        as: route,
+        assigns: RinshanWeb.StaticPages.get_page(route) |> Map.delete(:__struct__)
+    end
   end
 
   # Other scopes may use custom stacks.

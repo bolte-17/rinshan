@@ -4,4 +4,8 @@ defmodule RinshanWeb.PageController do
   def home(conn, _params) do
     render(conn, :home)
   end
+
+  def static_page(conn, params) do
+    render(conn)
+  end
 end

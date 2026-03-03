@@ -1,0 +1,7 @@
+<Layouts.app flash={@flash}>
+  <div class="container mx-auto prose prose-headings:font-normal prose-a:text-primary">
+    <h1 :if={@show_title}>{@title}</h1>
+    <p :if={@show_description}>{@description}</p>
+    {raw(@body)}
+  </div>
+</Layouts.app>
