@@ -41,7 +41,7 @@ defmodule RinshanWeb.Navs do
           <img src={~p"/images/logo.svg"} width="36" />
         </a>
       </div> --%>
-      <div class="navbar-center hidden lg:flex">
+      <div class="navbar-end hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
           <.nav_links />
         </ul>
