@@ -1,13 +1,12 @@
 defmodule RinshanWeb.Navs do
   alias RinshanWeb.Components
-  alias Phoenix.LiveView.JS
 
   use RinshanWeb, :html
   use Gettext, backend: RinshanWeb.Gettext
 
   def navbar(assigns) do
     ~H"""
-    <div class="navbar text-primary bg-base-100 shadow-sm">
+    <div class="navbar text-primary">
       <div class="navbar-start">
         <div class="dropdown">
           <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
