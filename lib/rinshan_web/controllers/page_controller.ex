@@ -5,7 +5,9 @@ defmodule RinshanWeb.PageController do
     render(conn, :home)
   end
 
-  def static_page(conn, params) do
-    render(conn)
+  def static_page(conn, _params) do
+    conn
+    |> assign(:site, Application.get_env(:rinshan, :site))
+    |> render()
   end
 end

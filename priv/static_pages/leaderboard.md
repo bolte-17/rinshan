@@ -6,11 +6,11 @@ navlink: 4
 
 ## Current Leaderboards
 
-{% include leaderboard-embed.html %}
+<.leaderboard_embeds />
 
 For detailed games, please see the full spreadsheets here:
-1. [Club Leaderboard 2026]({{ site.data.links.ClubLeaderboard }})
-1. [Friendly Leaderboard 2026]({{ site.data.links.FriendlyLeaderboard }})
+1. <.link navigate={ @site.data.links.club_leaderboard }>Club Leaderboard 2026</.link>
+1. <.link navigate={ @site.data.links.club_leaderboard }>Friendly Leaderboard 2026</.link>
 
 ## Leaderboard Rules
 

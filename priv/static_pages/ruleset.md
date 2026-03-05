@@ -82,7 +82,7 @@ WRC 2025 Rules (without modification) that are different from the base QCR rules
 - [Atamahane (Head Bump)](https://riichi.wiki/Atamahane)
 
 ### Riichi (page 6)
-- Can riichi with <4 tiles remaining
+- Can riichi with less than 4 tiles remaining
 - Can riichi below 1000 points
 
 ### Scoring (page 7):

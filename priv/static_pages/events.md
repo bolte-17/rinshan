@@ -7,7 +7,10 @@ navlink: 1
 
 ![8/14/2024 Meetup Picture](https://res.cloudinary.com/djvg6ubiy/image/upload/v1726340950/Queen%20City%20Riichi/Meetup_8_4_2_tables_sc1dwc.jpg)
 
-Please join [our Discord server], where we share details and updates about all our events. You can find our [seasonal leaderboard here](/leaderboard) and our [ruleset here](/ruleset). We'll introduce our regular events in sections below.
+Please join <.social_link social="discord">our Discord server</.social_link>,
+where we share details and updates about all our events.
+You can find our [seasonal leaderboard here](/leaderboard) and our [ruleset here](/ruleset).
+We'll introduce our regular events in sections below.
 
 # Regular Meetups
 
@@ -17,6 +20,4 @@ Currently, we meet bi-weekly on Sundays and four-weekly on Saturdays, in Element
 
 # Calendar
 
-{% include calendar-embed.html %}
-
-[our Discord server]: {{ site.data.socials.Discord.url }}
+<.calendar_embed />

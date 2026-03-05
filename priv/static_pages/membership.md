@@ -25,7 +25,7 @@ The details are being finalized. We will give prizes to the top X paid members o
 1. a physical prize like a riichi sticker set
 
 ## Payment 
-Please talk to an officer before paying for the membership. We can be reached on [our Discord server].
+Please talk to an officer before paying for the membership. We can be reached on <.social_link social="discord">our Discord server</.social_link>.
 
 ### Officers
 * President: Peter G.
@@ -41,8 +41,6 @@ Please talk to an officer before paying for the membership. We can be reached on
 ![Best Chiili Shirt Front](https://res.cloudinary.com/djvg6ubiy/image/upload/c_pad,w_1080/v1745552839/Queen%20City%20Riichi/IMG_20250424_234429_kxoiuk.jpg)
 
 ![Best Chiili Shirt Back](https://res.cloudinary.com/djvg6ubiy/image/upload/c_pad,w_1080/v1745552839/Queen%20City%20Riichi/IMG_20250424_234446_s1ai9o.jpg)
-
-[our Discord server]: {{ site.data.socials.Discord.url }}
 
 ## Business Cards
 

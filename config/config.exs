@@ -10,24 +10,40 @@ import Config
 config :rinshan,
   ecto_repos: [Rinshan.Repo],
   generators: [timestamp_type: :utc_datetime],
-  socials: [
-    discord: %{
-      url: "https://discord.gg/R9dr6T2",
-      icon: "fa-brands fa-discord"
-    },
-    instagram: %{
-      url: "https://www.instagram.com/QueenCityRiichi/",
-      icon: "fa-brands fa-instagram"
-    },
-    github: %{
-      url: "https://github.com/Queen-City-Riichi",
-      icon: "fa-brands fa-github"
-    },
-    email: %{
-      url: "mailto:queencityriichi@gmail.com",
-      icon: "fa-solid fa-envelope"
+  site: %{
+    data: %{
+      links: %{
+        club_leaderboard:
+          "https://docs.google.com/spreadsheets/d/176ezXMI8H9plaY6Q6-NHz2pvv5jGtADY0IPp9n5XdxQ/edit?usp=sharing",
+        club_leaderboard_embed_src:
+          "https://docs.google.com/spreadsheets/d/e/2PACX-1vTA2BvxvFaaRL68uh_bR1oi8jo2r5FN5ji-QuXWtOSykmbJj9ZvS8HUTpYFaY5setgLeu7au5MrOrRj/pubhtml?gid=1085436586&amp;single=true&amp;widget=true&amp;headers=false",
+        friendly_leaderboard:
+          "https://docs.google.com/spreadsheets/d/1jG28HsojMgWtgtcqgSazYlazEk1GorTd99VUAR-z89s/edit?usp=sharing",
+        friendly_leaderboard_embed_src:
+          "https://docs.google.com/spreadsheets/d/e/2PACX-1vTYs-TaLGTZ0EAOYUJwFiMKymJ2DibcfCM9Y-YeXMeWq2pKA6En7y5DrnJa0k5hlLGfJngiExLa6SUQ/pubhtml?gid=1085436586&amp;single=true&amp;widget=true&amp;headers=false",
+        calendar_embed_src:
+          "https://calendar.google.com/calendar/embed?height=350&wkst=1&ctz=America%2FNew_York&mode=AGENDA&title=Queen%20City%20Riichi%20Events&src=cXVlZW5jaXR5cmlpY2hpQGdtYWlsLmNvbQ&color=%233F51B5"
+      },
+      socials: %{
+        discord: %{
+          url: "https://discord.gg/R9dr6T2",
+          icon: "fa-brands fa-discord"
+        },
+        instagram: %{
+          url: "https://www.instagram.com/QueenCityRiichi/",
+          icon: "fa-brands fa-instagram"
+        },
+        github: %{
+          url: "https://github.com/Queen-City-Riichi",
+          icon: "fa-brands fa-github"
+        },
+        email: %{
+          url: "mailto:queencityriichi@gmail.com",
+          icon: "fa-solid fa-envelope"
+        }
+      }
     }
-  ]
+  }
 
 # Configure the endpoint
 config :rinshan, RinshanWeb.Endpoint,
@@ -77,6 +93,9 @@ config :logger, :default_formatter,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Markdown templates (see: https://elixirforum.com/t/heex-inside-of-standalone-markdown-templates-a-guide/69288)
+config :phoenix, :template_engines, md: RinshanWeb.MdEngine
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

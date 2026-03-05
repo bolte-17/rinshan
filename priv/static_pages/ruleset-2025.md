@@ -1,8 +1,9 @@
 ---
 title: Ruleset 2025
-description: This is the **legacy** ruleset used for the 2025 leaderboard. The core ruleset is based on the [Mahjong Soul ranked ruleset](https://riichi.wiki/Majsoul#Rules), with modifications for fairness and in-person gameplay. See the final section for a comparison with the [WRC 2025 Ruleset].
 navlink: 0
 ---
+
+This is the **legacy** ruleset used for the 2025 leaderboard. The core ruleset is based on the [Mahjong Soul ranked ruleset](https://riichi.wiki/Majsoul#Rules), with modifications for fairness and in-person gameplay. See the final section for a comparison with the [WRC 2025 Ruleset].
 
 ## Major Modifications
 These are the changes that commonly affect gameplay.
@@ -44,7 +45,7 @@ WRC 2025 Rules (without modification) that are different from the QCR ruleset:
 - [Atamahane (Head Bump)](https://riichi.wiki/Atamahane)
 
 ### Riichi (page 6)
-- Can riichi with <4 tiles remaining
+- Can riichi with less than 4 tiles remaining
 - Can riichi below 1000 points
 
 ### Scoring (page 7):

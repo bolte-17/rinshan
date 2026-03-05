@@ -1,6 +1,6 @@
 defmodule RinshanWeb.StaticPages do
   defmodule Parser do
-    def parse(path, contents) do
+    def parse(_path, contents) do
       [attrs, body] = String.split(contents, ~r/---\n/, trim: true)
 
       {attrs

@@ -21,12 +21,9 @@ defmodule RinshanWeb.Navs do
             <.link navigate={"/#{page.route}"} class="link link-hover capitalize">{page.title}</.link>
           </li>
           <li>
-            <.link
-              href={Application.get_env(:rinshan, :socials) |> Kernel.get_in([:discord, :url])}
-              class="link link-hover"
-            >
+            <Components.social_link social="discord" class="link link-hover">
               Join Us
-            </.link>
+            </Components.social_link>
           </li>
         </ul>
       </div>
@@ -38,7 +35,7 @@ defmodule RinshanWeb.Navs do
     assigns =
       assigns
       |> Map.put_new_lazy(:socials, fn ->
-        Application.get_env(:rinshan, :socials, []) |> Keyword.values()
+        Application.get_env(:rinshan, :site).data.socials |> Map.values()
       end)
 
     ~H"""
